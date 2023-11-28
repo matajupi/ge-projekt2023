@@ -1,57 +1,27 @@
 import * as React from "react";
 
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
+import { Routes, Route } from "react-router-dom";
 
-const AnswerForm = () => {
-    return (
-        <FormControl>
-            <RadioGroup
-                defaultValue="A"
-            >
-                <FormControlLabel value="A" control={<Radio />} label="Play games" />
-                <FormControlLabel value="B" control={<Radio />} label="Read books" />
-                <FormControlLabel value="C" control={<Radio />} label="Just sleep" />
-            </RadioGroup>
-            <Button variant="contained">Answer</Button>
-        </FormControl>
-    );
-};
-
-const QuestionAnswerPage = () => {
-    return (
-        <Box sx={{ justifyContent: "center" }}>
-            <Box sx={{ m: 2, p: 2, boxShadow: 1 }}>
-                <Typography variant="subtitle1" sx={{ color: "primary" }}>
-                    Question1
-                </Typography>
-                <Typography variant="body1" sx={{ color: "primary" }}>
-                    What did you like to do when you were a child?
-                </Typography>
-            </Box>
-            <Box sx={{ m: 2 }}>
-                <AnswerForm />
-            </Box>
-        </Box>
-    );
-};
-
-const AnswerDisplayPage = () => {
-    return (
-        <>
-        </>
-    );
-};
+import QuestionAnswerPage from "./QuestionAnswerPage";
+import DetectPage from "./DetectPage";
+import AnswerDisplayPage from "./AnswerDisplayPage";
 
 const App = () => {
     return (
-        <QuestionAnswerPage />
+        <div style={{
+            backgroundImage: "url(/imgs/bgImage1.jpg)",
+            backgroundSize: "cover",
+            backgroundColor: "rgba(255, 255, 255, 0.7)",
+            backgroundBlendMode: "lighten",
+            height: "100vh",
+            width: "100vw",
+        }}>
+            <Routes>
+                <Route path="/" element={<QuestionAnswerPage />} />
+                <Route path="/detect" element={<DetectPage />} />
+                <Route path="/answer" element={<AnswerDisplayPage />} />
+            </Routes>
+        </div>
     );
 };
 
