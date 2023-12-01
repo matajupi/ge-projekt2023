@@ -2,10 +2,6 @@ import * as React from "react";
 
 import { Routes, Route } from "react-router-dom";
 
-import QuestionAnswerPage from "./QuestionAnswerPage";
-import DetectPage from "./DetectPage";
-import AnswerDisplayPage from "./AnswerDisplayPage";
-
 const App = () => {
     return (
         <div style={{
@@ -17,9 +13,6 @@ const App = () => {
             width: "100vw",
         }}>
             <Routes>
-                <Route path="/" element={<QuestionAnswerPage />} />
-                <Route path="/detect" element={<DetectPage />} />
-                <Route path="/answer" element={<AnswerDisplayPage />} />
             </Routes>
         </div>
     );
