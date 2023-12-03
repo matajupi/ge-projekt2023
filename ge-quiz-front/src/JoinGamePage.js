@@ -8,7 +8,7 @@ const JoinGamePage = (props) => {
     const navigate = useNavigate();
 
     const handleJoin = () => {
-        navigate("../game");
+        navigate(`..${props.baseName}/game`);
     };
 
 // eslint-disable-next-line react-hooks/exhaustive-deps

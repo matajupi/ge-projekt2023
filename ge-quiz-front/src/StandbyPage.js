@@ -18,13 +18,13 @@ const StandbyPage = React.forwardRef((props, ref) => {
         axios.delete(`http://${props.hostName}/games/${props.gameId}`).then((res) => {
             ref.current?.close();
             // TODO: Delete SID (Future work)
-            navigate("../");
+            navigate(`..${props.baseName}/`);
         });
     };
     const handleLeave = () => {
         ref.current?.close();
         // TODO: Delete SID (Future work)
-        navigate("../");
+        navigate(`..${props.baseName}/`);
     };
 
     return (

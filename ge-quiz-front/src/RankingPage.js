@@ -16,7 +16,7 @@ const RankingPage = React.forwardRef((props, ref) => {
 
     const handleClose = () => {
         // TODO: Resouceの片付け
-        navigate("../");
+        navigate(`..${props.baseName}/`);
     };
 
     let players = props.game.players.slice(2);

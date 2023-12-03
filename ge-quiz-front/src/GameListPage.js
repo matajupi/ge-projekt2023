@@ -12,11 +12,12 @@ const GameListPage = (props) => {
 
     const handleClick = (gameId) => {
         props.setGameId(gameId);
-        navigate("../join-game");
+        navigate(`..${props.baseName}/join-game`);
     };
 
     React.useEffect(() => {
         props.setTitle("Games");
+console.log(`http://${props.hostName}/games`);
         axios.get(`http://${props.hostName}/games`).then((res) => {
             setGames(res.data);
         });

@@ -2,31 +2,31 @@ import uvicorn
 import json
 import uuid
 import asyncio
+import threading
+import ssl
 
 from fastapi import FastAPI, HTTPException, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List
 
-from cancelth import CancelableThread
+# from cancelth import CancelableThread
 from game import Game
 from player import Player
 
 
 app = FastAPI()
 
-origins = [
-    "http://localhost:3000",
-    "https://web.sfc.keio.ac.jp/~t23570kf/ge-projekt",
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins = origins,
+    allow_origins = ['*'],
     allow_credentials = True,
     allow_methods = ['*'],
     allow_headers = ['*'],
 )
+
+ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+ssl_context.load_cert_chain("../ssl/cert.pem", keyfile="../ssl/key.pem")
 
 
 class ReadGameModel(BaseModel):
@@ -70,8 +70,8 @@ def delete_game(game_id: str):
         raise HTTPException(status_code=404, detail="Game not found")
 
     game = games[game_id]
-    if game.running:
-        game.th.raise_exception()
+    # if game.running:
+    #     game.th.raise_exception()
     del games[game_id]
     return { "message": "Game deleted" }
 
@@ -95,7 +95,8 @@ def start_game(game_id: str):
             del players[player.sid]
         del games[game.id]
 
-    th = CancelableThread(target = run_game)
+    # th = CancelableThread(target = run_game)
+    th = threading.Thread(target = run_game)
     game.th = th
     th.start()
     return { "message": "Game started" }
@@ -126,5 +127,5 @@ async def player_endpoint(ws: WebSocket):
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8001)
+    uvicorn.run(app, host="0.0.0.0", port=8001, ssl=ssl_context)
 

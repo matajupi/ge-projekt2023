@@ -20,7 +20,7 @@ const bgImages = [
 ];
 
 const App = () => {
-    const hostName = "localhost:8001";
+    const hostName = "133.27.4.213:8001";
     const baseName = "/~t23570kf/ge-projekt";
 
     const [gameId, setGameId] = React.useState("");

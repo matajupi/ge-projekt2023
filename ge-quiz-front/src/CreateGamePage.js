@@ -11,7 +11,7 @@ const CreateGamePage = (props) => {
     const handleCreate = () => {
         axios.post(`http://${props.hostName}/games`, { id: props.gameId, organizer: props.playerName })
         .then((res) => {
-            navigate("../game");
+            navigate(`..${props.baseName}/game`);
         });
     };
 
