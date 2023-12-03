@@ -3,20 +3,47 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const GameListPage = () => {
+const GameListPage = (props) => {
+    const [games, setGames] = React.useState([]);
+    const navigate = useNavigate();
+
+    const handleClick = (gameId) => {
+        props.setGameId(gameId);
+        navigate("../join-game");
+    };
+
+    React.useEffect(() => {
+        props.setTitle("Games");
+        axios.get(`http://${props.hostName}/games`).then((res) => {
+            setGames(res.data);
+        });
+// eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+
     return (
         <List>
-            <ListItem disablePadding>
-                <ListItemButton>
-                    <ListItemText primary="Game1" secondary="Created by Kosuke, Participants: 3" />
-                </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-                <ListItemButton>
-                    <ListItemText primary="Game2" secondary="Created by Troll, Participants: 4" />
-                </ListItemButton>
-            </ListItem>
+        {
+            games
+            .filter((game) => !game.running)
+            .map((game) => (
+                <ListItem disablePadding key={game.id}>
+                    <ListItemButton
+                        component={Link}
+                        to="/join-game"
+                        onClick={() => handleClick(game.id)}
+                    >
+                        <ListItemText
+                            primary={game.id}
+                            secondary={`Created by ${game.organizer}, Participants: ${game.players.length}`}
+                        />
+                    </ListItemButton>
+                </ListItem>
+            ))
+        }
         </List>
     );
 };

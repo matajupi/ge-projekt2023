@@ -1,27 +1,49 @@
 import * as React from "react";
 import { Routes, Route } from "react-router-dom";
-import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 
-import MainPage from "./MainPage"
+import HomePage from "./HomePage"
 import CreateGamePage from "./CreateGamePage";
 import GameListPage from "./GameListPage";
 import JoinGamePage from "./JoinGamePage";
-import GameDetailPage from "./GameDetailPage";
-import RolePage from "./RolePage";
-import QandAPage from "./QandAPage";
-import QAnswerPage from "./QAnswerPage";
-import IdentifyPage from "./IdentifyPage";
-import IAnswerPage from "./IAnswerPage";
-import ScorePage from "./ScorePage";
-import RankingPage from "./RankingPage";
+import GamePage from "./GamePage";
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
+const bgImages = [
+    "/images/bgs/bg1.jpg",
+    "/images/bgs/bg2.jpg",
+];
 
 const App = () => {
+    const hostName = "localhost:8001";
+
+    const [gameId, setGameId] = React.useState("");
+    const [playerName, setPlayerName] = React.useState("");
+    const [title, setTitle] = React.useState("");
+    const [bgImage, setBgImage] = React.useState(bgImages[getRandomInt(bgImages.length)]);
+
+    const changeBgImage = () => {
+        setBgImage(bgImages[getRandomInt(bgImages.length)]);
+    };
+
+    // TODO: if SID is valid then goto GameProcessPage with sid
+
+    const info = {
+        hostName: hostName,
+        gameId: gameId, setGameId: setGameId,
+        playerName: playerName, setPlayerName: setPlayerName,
+        title: title, setTitle: setTitle,
+        changeBgImage: changeBgImage
+    };
+
     return (
         <div style={{
-            backgroundImage: "url(/images/bgs/bg1.jpg)",
+            backgroundImage: `url(${bgImage})`,
             backgroundSize: "cover",
             backgroundAttachment: "fixed",
             backgroundColor: "rgba(255, 255, 255, 0.7)",
@@ -32,23 +54,16 @@ const App = () => {
             <AppBar position="sticky">
                 <Toolbar>
                     <Typography variant="h6">
-                        Title
+                        {title}
                     </Typography>
                 </Toolbar>
             </AppBar>
             <Routes>
-                <Route path="/" element={<MainPage />} />
-                <Route path="/create-game" element={<CreateGamePage />} />
-                <Route path="/games" element={<GameListPage />} />
-                <Route path="/join-game" element={<JoinGamePage />} />
-                <Route path="/game-detail" element={<GameDetailPage />} />
-                <Route path="/game-role" element={<RolePage />} />
-                <Route path="/q-and-a" element={<QandAPage />} />
-                <Route path="/qanswer" element={<QAnswerPage />} />
-                <Route path="/identify" element={<IdentifyPage />} />
-                <Route path="/ianswer" element={<IAnswerPage />} />
-                <Route path="/score" element={<ScorePage />} />
-                <Route path="/ranking" element={<RankingPage />} />
+                <Route path="/" element={<HomePage {...info} />} />
+                <Route path="/create-game" element={<CreateGamePage {...info} />} />
+                <Route path="/games" element={<GameListPage {...info} />} />
+                <Route path="/join-game" element={<JoinGamePage {...info} />} />
+                <Route path="/game" element={<GamePage {...info} />} />
             </Routes>
         </div>
     );

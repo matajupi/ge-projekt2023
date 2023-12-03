@@ -4,7 +4,10 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 
-const MainPage = () => {
+const HomePage = (props) => {
+// eslint-disable-next-line react-hooks/exhaustive-deps
+    React.useEffect(() => props.setTitle("Home"), []);
+
     return (
         <Grid container sx={{ direction: "column" }}>
             <Grid item xs={12} sx={{ mt: 3 }}>
@@ -39,4 +42,4 @@ const MainPage = () => {
     );
 };
 
-export default MainPage;
+export default HomePage;
