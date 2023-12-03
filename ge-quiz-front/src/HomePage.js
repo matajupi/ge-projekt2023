@@ -23,7 +23,7 @@ const HomePage = (props) => {
             <Grid item xs={12} sx={{ mt: 3 }}>
                 <Grid container sx={{ justifyContent: "center" }}>
                     <Grid item>
-                        <Button variant="contained" component={Link} to="/create-game">
+                        <Button variant="contained" component={Link} to={`${props.baseName}/create-game`}>
                             Create game
                         </Button>
                     </Grid>
@@ -32,7 +32,7 @@ const HomePage = (props) => {
             <Grid item xs={12} sx={{ my: 3 }}>
                 <Grid container sx={{ justifyContent: "center" }}>
                     <Grid item>
-                        <Button variant="contained" component={Link} to="/games">
+                        <Button variant="contained" component={Link} to={`${props.baseName}/games`}>
                             Join game
                         </Button>
                     </Grid>

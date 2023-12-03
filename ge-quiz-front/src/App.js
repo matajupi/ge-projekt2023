@@ -15,12 +15,13 @@ function getRandomInt(max) {
 }
 
 const bgImages = [
-    "/images/bgs/bg1.jpg",
-    "/images/bgs/bg2.jpg",
+    "images/bgs/bg1.jpg",
+    "images/bgs/bg2.jpg",
 ];
 
 const App = () => {
     const hostName = "localhost:8001";
+    const baseName = "/~t23570kf/ge-projekt";
 
     const [gameId, setGameId] = React.useState("");
     const [playerName, setPlayerName] = React.useState("");
@@ -28,7 +29,7 @@ const App = () => {
     const [bgImage, setBgImage] = React.useState(bgImages[getRandomInt(bgImages.length)]);
 
     const changeBgImage = () => {
-        setBgImage(bgImages[getRandomInt(bgImages.length)]);
+        setBgImage(`${baseName}/${bgImages[getRandomInt(bgImages.length)]}`);
     };
 
     // TODO: if SID is valid then goto GameProcessPage with sid
@@ -38,7 +39,7 @@ const App = () => {
         gameId: gameId, setGameId: setGameId,
         playerName: playerName, setPlayerName: setPlayerName,
         title: title, setTitle: setTitle,
-        changeBgImage: changeBgImage
+        changeBgImage: changeBgImage, baseName: baseName,
     };
 
     return (
@@ -59,11 +60,11 @@ const App = () => {
                 </Toolbar>
             </AppBar>
             <Routes>
-                <Route path="/" element={<HomePage {...info} />} />
-                <Route path="/create-game" element={<CreateGamePage {...info} />} />
-                <Route path="/games" element={<GameListPage {...info} />} />
-                <Route path="/join-game" element={<JoinGamePage {...info} />} />
-                <Route path="/game" element={<GamePage {...info} />} />
+                <Route path={`${baseName}/`} element={<HomePage {...info} />} />
+                <Route path={`${baseName}/create-game`} element={<CreateGamePage {...info} />} />
+                <Route path={`${baseName}/games`} element={<GameListPage {...info} />} />
+                <Route path={`${baseName}/join-game`} element={<JoinGamePage {...info} />} />
+                <Route path={`${baseName}/game`} element={<GamePage {...info} />} />
             </Routes>
         </div>
     );

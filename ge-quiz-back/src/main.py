@@ -3,10 +3,8 @@ import json
 import uuid
 import asyncio
 
-from fastapi import FastAPI, HTTPException, WebSocket, Request
+from fastapi import FastAPI, HTTPException, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 from typing import List
 
@@ -17,9 +15,9 @@ from player import Player
 
 app = FastAPI()
 
-# TODO: ReactのデプロイされたEndpointを登録する
 origins = [
     "http://localhost:3000",
+    "https://web.sfc.keio.ac.jp/~t23570kf/ge-projekt",
 ]
 
 app.add_middleware(
@@ -29,9 +27,6 @@ app.add_middleware(
     allow_methods = ['*'],
     allow_headers = ['*'],
 )
-app.mount("/static", StaticFiles(directory = "../../ge-quiz-front/build/static"))
-app.mount("/images", StaticFiles(directory = "../../ge-quiz-front/build/images"))
-templates = Jinja2Templates(directory = "../../ge-quiz-front/build/")
 
 
 class ReadGameModel(BaseModel):
@@ -48,11 +43,6 @@ class CreateGameModel(BaseModel):
 
 games = {}
 players = {}
-
-
-@app.get("/")
-def index(request: Request):
-    return templates.TemplateResponse("index.html", { "request": request })
 
 
 @app.get("/games")
