@@ -9,7 +9,7 @@ const CreateGamePage = (props) => {
     const navigate = useNavigate();
 
     const handleCreate = () => {
-        axios.post(`http://${props.hostName}/games`, { id: props.gameId, organizer: props.playerName })
+        axios.post(`https://${props.hostName}/games`, { id: props.gameId, organizer: props.playerName })
         .then((res) => {
             navigate(`..${props.baseName}/game`);
         });
