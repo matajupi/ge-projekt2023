@@ -3,7 +3,6 @@ import json
 import uuid
 import asyncio
 import threading
-import ssl
 
 from fastapi import FastAPI, HTTPException, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
@@ -24,9 +23,6 @@ app.add_middleware(
     allow_methods = ['*'],
     allow_headers = ['*'],
 )
-
-ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-ssl_context.load_cert_chain("../ssl/cert.pem", keyfile="../ssl/key.pem")
 
 
 class ReadGameModel(BaseModel):
@@ -127,5 +123,6 @@ async def player_endpoint(ws: WebSocket):
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8001, ssl=ssl_context)
+    uvicorn.run(app, host="0.0.0.0", port=8001,
+    ssl_keyfile="../ssl/key.pem", ssl_certfile="../ssl/cert.pem")
 
