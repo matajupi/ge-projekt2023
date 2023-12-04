@@ -25,10 +25,10 @@ app.add_middleware(
     allow_methods = ['*'],
     allow_headers = ['*'],
 )
-app.mount("/static", StaticFiles(directory = "../static"))
-app.mount("/images", StaticFiles(directory = "../images"))
+app.mount("/static", StaticFiles(directory = "../build/static"))
+app.mount("/images", StaticFiles(directory = "../build/images"))
 
-templates = Jinja2Templates(directory = "../templates")
+templates = Jinja2Templates(directory = "../build")
 
 
 class ReadGameModel(BaseModel):
@@ -134,5 +134,5 @@ async def player_endpoint(ws: WebSocket):
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8001)
+    uvicorn.run(app, host="0.0.0.0", port=8002)
 

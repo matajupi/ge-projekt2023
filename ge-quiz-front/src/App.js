@@ -20,7 +20,7 @@ const bgImages = [
 ];
 
 const App = () => {
-    const hostName = "133.27.4.213:8001";
+    const hostName = "133.27.4.213:8002";
     const baseName = "";
 
     const [gameId, setGameId] = React.useState("");

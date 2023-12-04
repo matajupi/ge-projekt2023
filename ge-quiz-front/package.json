@@ -2,7 +2,7 @@
   "name": "ge-quiz-front",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://web.sfc.keio.ac.jp/~t23570kf/ge-projekt",
+  "homepage": "./",
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
