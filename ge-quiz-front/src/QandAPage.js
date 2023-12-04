@@ -39,9 +39,6 @@ const QandAPage = React.forwardRef((props, ref) => {
                         <Typography variant="subtitle1">
                             {props.game.question.statement}
                         </Typography>
-                        <Typography variant="body1">
-                            What did you like to do when you were a child?
-                        </Typography>
                     </CardContent>
                 </Card>
             </Grid>
