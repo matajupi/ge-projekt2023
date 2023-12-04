@@ -17,7 +17,7 @@ const GameListPage = (props) => {
 
     React.useEffect(() => {
         props.setTitle("Games");
-        axios.get(`https://${props.hostName}/games`).then((res) => {
+        axios.get(`http://${props.hostName}/games`).then((res) => {
             setGames(res.data);
         });
 // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -12,10 +12,10 @@ const StandbyPage = React.forwardRef((props, ref) => {
     const navigate = useNavigate();
 
     const handleStart = () => {
-        axios.post(`https://${props.hostName}/games/${props.gameId}/start`);
+        axios.post(`http://${props.hostName}/games/${props.gameId}/start`);
     };
     const handleDelete = () => {
-        axios.delete(`https://${props.hostName}/games/${props.gameId}`).then((res) => {
+        axios.delete(`http://${props.hostName}/games/${props.gameId}`).then((res) => {
             ref.current?.close();
             // TODO: Delete SID (Future work)
             navigate(`..${props.baseName}/`);

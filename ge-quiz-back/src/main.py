@@ -4,7 +4,9 @@ import uuid
 import asyncio
 import threading
 
-from fastapi import FastAPI, HTTPException, WebSocket
+from fastapi import FastAPI, HTTPException, WebSocket, Request
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List
@@ -23,6 +25,10 @@ app.add_middleware(
     allow_methods = ['*'],
     allow_headers = ['*'],
 )
+app.mount("/static", StaticFiles(directory = "../static"))
+app.mount("/images", StaticFiles(directory = "../images"))
+
+templates = Jinja2Templates(directory = "../templates")
 
 
 class ReadGameModel(BaseModel):
@@ -39,6 +45,11 @@ class CreateGameModel(BaseModel):
 
 games = {}
 players = {}
+
+
+@app.get("/")
+def index(request: Request):
+    return templates.TemplateResponse("index.html", { "request": request })
 
 
 @app.get("/games")
@@ -123,6 +134,5 @@ async def player_endpoint(ws: WebSocket):
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8001,
-    ssl_keyfile="../ssl/key.pem", ssl_certfile="../ssl/cert.pem")
+    uvicorn.run(app, host="0.0.0.0", port=8001)
 
